@@ -1,4 +1,4 @@
-package com.dhanz21.expertguide.controller;
+package com.trekExpert.expertguide.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

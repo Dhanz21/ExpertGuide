@@ -1,4 +1,4 @@
-package com.dhanz21.expertguide.dto;
+package com.trekExpert.expertguide.dto;
 
 import java.math.BigDecimal;
 

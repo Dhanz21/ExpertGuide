@@ -1,4 +1,4 @@
-package com.dhanz21.expertguide.repository;
+package com.trekExpert.expertguide.repository;
 
 import org.springframework.stereotype.Repository;
 

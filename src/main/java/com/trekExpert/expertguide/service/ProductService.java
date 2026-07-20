@@ -1,4 +1,4 @@
-package com.dhanz21.expertguide.service;
+package com.trekExpert.expertguide.service;
 
 import org.springframework.stereotype.Service;
 
