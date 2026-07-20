@@ -6,7 +6,6 @@ plugins {
 
 group = 'com.dhanz21'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '21'
 
 repositories {
     mavenCentral()
@@ -21,4 +20,8 @@ java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(21)
     }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.release = 21
 }
