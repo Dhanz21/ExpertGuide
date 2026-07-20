@@ -49,6 +49,13 @@
             <version>${junit5.version}</version>
             <scope>test</scope>
         </dependency>
+        <!-- JUnit Vintage Engine for JUnit 4 support in JUnit 5 -->
+        <dependency>
+            <groupId>org.junit.vintage</groupId>
+            <artifactId>junit-vintage-engine</artifactId>
+            <version>${junit5.version}</version>
+            <scope>test</scope>
+        </dependency>
 
         <!-- Cucumber -->
         <dependency>
