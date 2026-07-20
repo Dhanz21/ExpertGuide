@@ -12,11 +12,35 @@ repositories {
     mavenCentral()
 }
 
-dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+ext {
+    cucumberVersion = '7.14.0'
+    junitVersion = '4.13.2'
+    junit5Version = '5.9.3'
+    mockitoVersion = '5.3.1'
 }
 
+dependencies {
+    // JUnit 4
+    testImplementation "junit:junit:${junitVersion}"
+
+    // JUnit 5
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${junit5Version}"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junit5Version}"
+    testImplementation "org.junit.jupiter:junit-jupiter-params:${junit5Version}"
+
+    // Cucumber
+    testImplementation "io.cucumber:cucumber-java:${cucumberVersion}"
+    testImplementation "io.cucumber:cucumber-junit:${cucumberVersion}"
+    testImplementation "io.cucumber:cucumber-junit-platform-engine:${cucumberVersion}"
+
+    // Mockito
+    testImplementation "org.mockito:mockito-core:${mockitoVersion}"
+    testImplementation "org.mockito:mockito-junit-jupiter:${mockitoVersion}"
+}
+
+test {
+    useJUnitPlatform()
+}
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(21)
