@@ -1,0 +1,33 @@
+# Maven
+target/
+*.jar
+*.war
+*.ear
+.m2/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# OS
+.DS_Store
+Thumbs.db
+.env
+
+# Application
+logs/
+*.log
+.h2.server.properties
+
+# Build
+build/
+dist/
