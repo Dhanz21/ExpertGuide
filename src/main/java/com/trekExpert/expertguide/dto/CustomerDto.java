@@ -2,5 +2,5 @@ package com.trekExpert.expertguide.dto;
 
 import java.math.BigDecimal;
 
-public record CustomerDto(Long id, String name, BigDecimal price, BigDecimal deliveryPrice,boolean isPreviliged) {
+public record CustomerDto(Long id, String name, BigDecimal price, BigDecimal deliveryPrice,boolean isPreviliged, String postcode) {
 }
