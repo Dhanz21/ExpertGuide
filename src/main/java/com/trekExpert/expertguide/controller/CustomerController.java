@@ -1,8 +1,8 @@
 package com.trekExpert.expertguide.controller;
 
+import com.trekExpert.expertguide.dto.CustomerDto;
 import com.trekExpert.expertguide.model.Customer;
 import com.trekExpert.expertguide.service.CustomerService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,18 +20,32 @@ public class CustomerController {
     }
 
     @PostMapping
-    public ResponseEntity<Customer> createCustomer(@RequestBody Customer customer) {
-        Customer saved = service.save(customer);
-        return ResponseEntity.created(URI.create("/customers/" + saved.getId())).body(saved);
+    public ResponseEntity<CustomerDto> createCustomer(@RequestBody CustomerDto customerDto) {
+        return null;
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Customer> getCustomer(@PathVariable Long id) {
-        return service.findById(id).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    public ResponseEntity<CustomerDto> getCustomer(@PathVariable Long id) {
+        return null;
     }
 
     @GetMapping
-    public ResponseEntity<List<Customer>> listCustomers() {
-        return ResponseEntity.ok(service.findAll());
+    public ResponseEntity<List<CustomerDto>> listCustomers() {
+        List<CustomerDto> customers = service.findAll().stream().map(this::toDto).toList();
+        return ResponseEntity.ok(customers);
+    }
+
+    private Customer toEntity(CustomerDto dto) {
+        if (dto == null) {
+            return null;
+        }
+        return new Customer(dto.id(), dto.name(), dto.email(), dto.isPreviliged(), dto.postcode());
+    }
+
+    private CustomerDto toDto(Customer customer) {
+        if (customer == null) {
+            return null;
+        }
+        return new CustomerDto(customer.getId(), customer.getName(), customer.getEmail(), customer.isPreviliged(), customer.getPostcode());
     }
 }
