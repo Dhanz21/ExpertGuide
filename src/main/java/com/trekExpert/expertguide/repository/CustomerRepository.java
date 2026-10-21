@@ -1,7 +1,9 @@
 package com.trekExpert.expertguide.repository;
 
+import com.trekExpert.expertguide.model.Customer;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CustomerRepository {
+public interface CustomerRepository extends JpaRepository<Customer, Long> {
 }

@@ -47,6 +47,9 @@ dependencies {
     testImplementation "org.mockito:mockito-core:${mockitoVersion}"
     testImplementation "org.mockito:mockito-junit-jupiter:${mockitoVersion}"
 
+    // Spring Boot Test utilities
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
 }
 
 test {

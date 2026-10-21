@@ -1,174 +1,143 @@
 # ExpertGuide
 
-Expert Guide Application - REST API with Swagger Documentation
+A Spring Boot starter application for exposing a small REST API backed by an embedded H2 database. The project currently includes a working customer endpoint and the scaffolding for product/order-related resources.
 
-## 🚀 Getting Started
+## Overview
 
-### Prerequisites
+This project is built with:
+- Java 21
+- Spring Boot 3.2.2
+- Spring Data JPA
+- H2 in-memory database
+- SpringDoc OpenAPI / Swagger UI
+- Gradle
 
-- Java 11+
-- Maven 3.6+
+The application runs with a context path of `/api`, so endpoints are exposed under `http://localhost:8080/api`.
 
-### Project Setup
+## Prerequisites
 
-This project has been configured with Spring Boot, JPA, H2 Database, and Swagger/SpringDoc for local REST API testing.
+- Java 21 or newer
+- Gradle (wrapper included: `./gradlew`)
 
-### Running the Application
+## Getting started
 
-1. **Build the project:**
+### 1. Clone the project
+
 ```bash
-mvn clean install
+git clone https://github.com/Dhanz21/ExpertGuide.git
+cd ExpertGuide
 ```
 
-2. **Run the application:**
+### 2. Build the project
+
 ```bash
-mvn spring-boot:run
+./gradlew build
 ```
 
-The application will start on `http://localhost:8080`
+### 3. Run the application
 
-### 📡 Access the API
+```bash
+./gradlew bootRun
+```
 
-- **API Base URL:** `http://localhost:8080/api`
-- **Swagger UI:** `http://localhost:8080/api/swagger-ui.html`
-- **API Documentation (OpenAPI):** `http://localhost:8080/api/v3/api-docs`
-- **H2 Console (Database):** `http://localhost:8080/api/h2-console`
+The app starts on:
+- `http://localhost:8080`
+- API base URL: `http://localhost:8080/api`
 
-### 🗄️ Database Configuration
+## API access
 
-The application uses **H2 Database** - an embedded in-memory database perfect for local testing.
+- Swagger UI: `http://localhost:8080/api/swagger-ui.html`
+- OpenAPI document: `http://localhost:8080/api/v3/api-docs`
+- H2 console: `http://localhost:8080/api/h2-console`
 
-**H2 Console Access:**
-- URL: `http://localhost:8080/api/h2-console`
+### H2 database configuration
+
+The app uses an in-memory H2 database configured in `application.properties`:
 - JDBC URL: `jdbc:h2:mem:expertguidedb`
 - Username: `sa`
-- Password: (leave empty)
+- Password: empty
 
-### 📚 API Endpoints
+## Available endpoints
 
-#### Expert Management
-- **GET** `/api/experts` - Get all experts
-- **GET** `/api/experts/{id}` - Get expert by ID
-- **GET** `/api/experts/email/{email}` - Get expert by email
-- **GET** `/api/experts/expertise/{expertise}` - Get experts by expertise area
-- **GET** `/api/experts/active` - Get all active experts
-- **POST** `/api/experts` - Create a new expert
-- **PUT** `/api/experts/{id}` - Update an expert
-- **DELETE** `/api/experts/{id}` - Delete an expert
+### Customers
 
-### ✅ Testing
+- `GET /api/customers` — List customers
+- `GET /api/customers/{id}` — Get a customer by ID
+- `POST /api/customers` — Create a customer
 
-Run all tests:
+Example request:
+
 ```bash
-mvn test
-```
-
-Run integration tests:
-```bash
-mvn verify
-```
-
-### 💡 Example Request/Response
-
-**Create Expert:**
-```bash
-curl -X POST http://localhost:8080/api/experts \
+curl -X POST http://localhost:8080/api/customers \
   -H "Content-Type: application/json" \
   -d '{
-    "name": "Jane Smith",
-    "email": "jane@example.com",
-    "expertise": "Python",
-    "bio": "Expert Python developer",
-    "yearsExperience": 8,
-    "isActive": true
+    "name": "John Doe",
+    "email": "john@example.com"
   }'
 ```
 
-**Response:**
+Example response:
+
 ```json
 {
   "id": 1,
-  "name": "Jane Smith",
-  "email": "jane@example.com",
-  "expertise": "Python",
-  "bio": "Expert Python developer",
-  "yearsExperience": 8,
-  "isActive": true
+  "name": "John Doe",
+  "email": "john@example.com"
 }
 ```
 
-## 🏗️ Architecture
+### Product and order modules
 
-```
+The project contains controller/service scaffolding for `Product` and `Order` resources, along with DTOs for those domains. These are not fully implemented yet and can be extended as the business model grows.
+
+## Project structure
+
+```text
 src/
 ├── main/
 │   ├── java/com/trekExpert/expertguide/
-│   │   ├── ExpertGuideApplication.java (Spring Boot Main)
+│   │   ├── ExpertGuideApplication.java
 │   │   ├── controller/
-│   │   │   └── ExpertController.java (REST Endpoints)
-│   │   ├── service/
-│   │   │   └── ExpertService.java (Business Logic)
+│   │   │   ├── CustomerController.java
+│   │   │   ├── ProductController.java
+│   │   │   └── OrderController.java
+│   │   ├── dto/
+│   │   │   ├── CustomerDto.java
+│   │   │   ├── ProductDto.java
+│   │   │   └── OrderDto.java
 │   │   ├── model/
-│   │   │   └── Expert.java (JPA Entity)
-│   │   └── repository/
-│   │       └── ExpertRepository.java (Data Access)
+│   │   │   └── Customer.java
+│   │   ├── repository/
+│   │   │   ├── CustomerRepository.java
+│   │   │   ├── ProductRepository.java
+│   │   │   └── OrderRepository.java
+│   │   └── service/
+│   │       ├── CustomerService.java
+│   │       ├── ProductService.java
+│   │       └── OrderService.java
 │   └── resources/
-│       └── application.properties (Configuration)
+│       └── application.properties
 └── test/
-    └── java/com/trekExpert/expertguide/
-        └── controller/
-            └── ExpertControllerTest.java (Tests)
+    └── java/com/trekExpert/expertguide/controller/
+        └── CustomerControllerTest.java
 ```
 
-## 🛠️ Technologies Used
+## Testing
 
-- **Spring Boot 2.7.14** - Web framework
-- **Spring Data JPA** - Database ORM
-- **H2 Database 2.1.214** - Embedded database for testing
-- **SpringDoc OpenAPI 1.7.0** - Swagger/OpenAPI documentation
-- **Lombok** - Reduce boilerplate code
-- **JUnit 5** - Unit testing
-- **Mockito** - Mocking framework
-- **Cucumber** - BDD testing
+Run the test suite with:
 
-## 💻 Development
-
-### Adding New Endpoints
-
-1. Create a new method in the service class
-2. Create a corresponding controller method with `@GetMapping`, `@PostMapping`, etc.
-3. Add Swagger annotations (`@Operation`, `@ApiResponse`, etc.)
-4. Write tests in the test directory
-
-### Database Schema
-
-The application uses Hibernate with `ddl-auto=create-drop`, which automatically creates and drops the schema on startup. Tables are created from JPA entity annotations.
-
-## 🔧 Troubleshooting
-
-**H2 Driver Not Found Error:**
-If you get "Cannot load driver class: org.h2.Driver", run:
 ```bash
-mvn clean install
-```
-This ensures all dependencies are properly downloaded.
-
-**Port already in use:**
-```bash
-mvn spring-boot:run -Dspring-boot.run.arguments="--server.port=8081"
+./gradlew test
 ```
 
-**View SQL queries:**
-In `application.properties`, set:
-```properties
-spring.jpa.show-sql=true
-logging.level.org.hibernate.SQL=DEBUG
-```
+This project currently includes a Spring Boot integration test for the customer API.
 
-## 📝 License
+## Notes
 
-MIT License
+- The application is configured for local development and testing with an embedded H2 database.
+- The `server.servlet.context-path=/api` setting means all endpoints are grouped under the `/api` base path.
+- The project appears to be in an early starter state; customer functionality is implemented, and Product/Order resources are present as scaffolding for future development.
 
-## 📞 Support
+## License
 
-For issues or questions, please refer to the project's issue tracker.
+This project does not currently declare a license file in the repository. If you plan to publish or share it externally, add an appropriate license before distribution.
