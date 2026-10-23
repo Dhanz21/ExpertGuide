@@ -21,12 +21,16 @@ public class CustomerController {
 
     @PostMapping
     public ResponseEntity<CustomerDto> createCustomer(@RequestBody CustomerDto customerDto) {
-        return null;
+        Customer saved = service.save(toEntity(customerDto));
+        return ResponseEntity.created(URI.create("/customers/" + saved.getId())).body(toDto(saved));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<CustomerDto> getCustomer(@PathVariable Long id) {
-        return null;
+        return service.findById(id)
+                    .map(this::toDto)
+                    .map(ResponseEntity::ok)
+                    .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @GetMapping

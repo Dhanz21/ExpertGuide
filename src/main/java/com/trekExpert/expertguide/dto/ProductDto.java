@@ -1,4 +1,6 @@
 package com.trekExpert.expertguide.dto;
 
-public record ProductDto(Long id, String name, Integer qtyAvailable) {
+import java.math.BigDecimal;
+
+public record ProductDto(Long id, String name, Integer qtyAvailable, BigDecimal price) {
 }
