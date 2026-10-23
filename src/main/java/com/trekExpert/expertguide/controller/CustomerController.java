@@ -22,12 +22,12 @@ public class CustomerController {
     @PostMapping
     public ResponseEntity<CustomerDto> createCustomer(@RequestBody CustomerDto customerDto) {
         Customer saved = service.save(toEntity(customerDto));
-        return ResponseEntity.created(URI.create("/customers/" + saved.getId())).body(toDto(saved));
+        return ResponseEntity.created(URI.create("/customers/" + saved.getCustomerId())).body(toDto(saved));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CustomerDto> getCustomer(@PathVariable Long id) {
-        return service.findById(id)
+    public ResponseEntity<CustomerDto> getCustomer(@PathVariable String id) {
+        return service.findById(Long.valueOf(id))
                     .map(this::toDto)
                     .map(ResponseEntity::ok)
                     .orElseGet(() -> ResponseEntity.notFound().build());
@@ -43,13 +43,13 @@ public class CustomerController {
         if (dto == null) {
             return null;
         }
-        return new Customer(dto.id(), dto.name(), dto.email(), dto.isPreviliged(), dto.postcode());
+        return new Customer(dto.customerId(), dto.customerName(), dto.email(), dto.isPreviliged(), dto.postcode());
     }
 
     private CustomerDto toDto(Customer customer) {
         if (customer == null) {
             return null;
         }
-        return new CustomerDto(customer.getId(), customer.getName(), customer.getEmail(), customer.isPreviliged(), customer.getPostcode());
+        return new CustomerDto(customer.getCustomerId(), customer.getCustomerName(), customer.getEmail(), customer.isPreviliged(), customer.getPostcode());
     }
 }

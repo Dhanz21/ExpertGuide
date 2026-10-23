@@ -7,10 +7,10 @@ import jakarta.persistence.*;
 public class Customer {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private String customerId;
 
-    private String name;
+    private String customerName;
 
     private String email;
 
@@ -21,28 +21,28 @@ public class Customer {
     public Customer() {
     }
 
-    public Customer(Long id, String name, String email, boolean isPreviliged, String postcode) {
-        this.id = id;
-        this.name = name;
+    public Customer(String customerId, String customerName, String email, boolean isPreviliged, String postcode) {
+        this.customerId = customerId;
+        this.customerName = customerName;
         this.email = email;
         this.isPreviliged = isPreviliged;
         this.postcode = postcode;
     }
 
-    public Long getId() {
-        return id;
+    public String getCustomerId() {
+        return customerId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
     }
 
-    public String getName() {
-        return name;
+    public String getCustomerName() {
+        return customerName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
     }
 
     public String getEmail() {
